@@ -11,5 +11,7 @@ namespace Garage
         string RegisterNr { get; set; }
         string Model {get; set;}
         DateTime ParkTime { get; set; }
+        string Brand { get; set; }
+        string Color { get; set; }
     }
 }
