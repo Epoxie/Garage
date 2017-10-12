@@ -25,7 +25,7 @@ namespace Garage
 
         public  string BasicInfo()
         {
-            return "RegNr: " + RegNr + "\n-Vehicle Type: " + v;
+            return "RegNr: " + RegNr + "\n-Vehicle Type: " + V;
         }
         
         public override string ToString()

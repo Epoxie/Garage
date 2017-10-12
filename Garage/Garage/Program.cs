@@ -13,7 +13,6 @@ namespace Garage
     {
         static Garage garage = new Garage();
         static double pricePerSecond = 2;
-        static bool isRunning = true;
 
 
 
@@ -62,10 +61,14 @@ namespace Garage
 
                         else
                         {
-                            Console.WriteLine(garage.SearchByRegNr(inputs).ElementAt(0));
+                            try
+                            {
+                                Console.WriteLine(garage.SearchByRegNr(inputs).ElementAt(0).ToString());
+                            }
+                            catch { Console.WriteLine("Could not find that vehicle."); }
                         }
                         //Return all info for a specific vehicle by reg number
-
+                        Console.ReadKey();
                         break;
                     case '3':
                         Console.WriteLine("0: Exit\n" +
@@ -84,19 +87,15 @@ namespace Garage
                                 break;
                             case '1':
                                 newVehicle = new Bus();
-                                newVehicle.v = Vehicle.Vtype.Bus;
                                 break;
                             case '2':
                                 newVehicle = new Car();
-                                newVehicle.v = Vehicle.Vtype.Car;
                                 break;
                             case '3':
                                 newVehicle = new Motorcycle();
-                                newVehicle.v = Vehicle.Vtype.Motorcycle;
                                 break;
                             case '4':
                                 newVehicle = new Truck();
-                                newVehicle.v = Vehicle.Vtype.Truck;
                                 break;
                             default:
                                 break;
@@ -123,15 +122,17 @@ namespace Garage
                         newVehicle.Color = inputs;
 
                         //Depending on type present additional options
-                        switch (newVehicle.v)
+                        switch (newVehicle.V)
                         {
                             case Vehicle.Vtype.Bus:
                                 Console.WriteLine("Enter nr of seats: ");
                                 inputs = Console.ReadLine();
 
+                                
                                 try
                                 {
-                                    ((Bus)newVehicle).Seats = int.Parse(inputs);
+                                    Regex regex = new Regex(@"[^\d]");
+                                    ((Bus)newVehicle).Seats = Int32.Parse(regex.Replace(inputs, ""));
                                 }
                                 catch (Exception e)
                                 {
@@ -147,7 +148,8 @@ namespace Garage
                                 inputs = Console.ReadLine();
                                 try
                                 {
-                                    ((Car)newVehicle).ProdYear = int.Parse(inputs);
+                                    Regex regex = new Regex(@"[^\d]");
+                                    ((Car)newVehicle).ProdYear = Int32.Parse(regex.Replace(inputs, ""));
                                 }
                                 catch (Exception e)
                                 {
@@ -162,7 +164,8 @@ namespace Garage
                             case Vehicle.Vtype.Motorcycle:
                                 try
                                 {
-                                    ((Motorcycle)newVehicle).Class = int.Parse(inputs);
+                                    Regex regex = new Regex(@"[^\d]");
+                                    ((Motorcycle)newVehicle).Class = Int32.Parse(regex.Replace(inputs, ""));
                                 }
                                 catch (Exception e)
                                 {
@@ -179,7 +182,13 @@ namespace Garage
                         Console.WriteLine("Registration number: ");
                         inputs = Console.ReadLine();
 
-                        Vehicle vehicleToRemove = garage.SearchByRegNr(inputs).ElementAt(0);
+                        Vehicle vehicleToRemove = null;
+                        try
+                        {
+                            vehicleToRemove = garage.SearchByRegNr(inputs).ElementAt(0);
+                        }
+                        catch { Console.WriteLine("Couldn't find that Vehicle."); }
+                        
 
                         if (vehicleToRemove != null)
                         {
