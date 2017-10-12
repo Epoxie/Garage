@@ -15,7 +15,7 @@ namespace Garage
         {
             for (int i = 0; i < SizeOfGarage; i++)
             {
-                GarageList[i] = null;
+                GarageList.Add(null);
             }
         }
 
