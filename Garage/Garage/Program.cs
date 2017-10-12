@@ -12,7 +12,7 @@ namespace Garage
     class Program
     {
         static Garage garage = new Garage();
-
+        static double pricePerSecond = 2;
         static bool isRunning = true;
 
 
@@ -77,6 +77,7 @@ namespace Garage
                         input = Console.ReadLine()[0];
                         Vehicle newVehicle = null;
 
+                        //Set vehicle type based on vehicle type
                         switch (input)
                         {
                             case '0':
