@@ -63,12 +63,12 @@ namespace Garage
                         {
                             try
                             {
-                                Console.WriteLine(garage.SearchByRegNr(inputs).ElementAt(0));
+                                Console.WriteLine(garage.SearchByRegNr(inputs).ElementAt(0).ToString());
                             }
                             catch { Console.WriteLine("Could not find that vehicle."); }
                         }
                         //Return all info for a specific vehicle by reg number
-
+                        Console.ReadKey();
                         break;
                     case '3':
                         Console.WriteLine("0: Exit\n" +
@@ -128,9 +128,11 @@ namespace Garage
                                 Console.WriteLine("Enter nr of seats: ");
                                 inputs = Console.ReadLine();
 
+                                
                                 try
                                 {
-                                    ((Bus)newVehicle).Seats = int.Parse(inputs);
+                                    Regex regex = new Regex(@"[^\d]");
+                                    ((Bus)newVehicle).Seats = Int32.Parse(regex.Replace(inputs, ""));
                                 }
                                 catch (Exception e)
                                 {
@@ -146,7 +148,8 @@ namespace Garage
                                 inputs = Console.ReadLine();
                                 try
                                 {
-                                    ((Car)newVehicle).ProdYear = int.Parse(inputs);
+                                    Regex regex = new Regex(@"[^\d]");
+                                    ((Car)newVehicle).ProdYear = Int32.Parse(regex.Replace(inputs, ""));
                                 }
                                 catch (Exception e)
                                 {
@@ -161,7 +164,8 @@ namespace Garage
                             case Vehicle.Vtype.Motorcycle:
                                 try
                                 {
-                                    ((Motorcycle)newVehicle).Class = int.Parse(inputs);
+                                    Regex regex = new Regex(@"[^\d]");
+                                    ((Motorcycle)newVehicle).Class = Int32.Parse(regex.Replace(inputs, ""));
                                 }
                                 catch (Exception e)
                                 {
