@@ -8,5 +8,6 @@ namespace Garage
 {
     class Truck : Vehicle
     {
+        string size { get; set; }
     }
 }

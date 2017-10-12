@@ -8,5 +8,6 @@ namespace Garage
 {
     class Car : Vehicle
     {
+        int ProdYear { get; set; }
     }
 }
