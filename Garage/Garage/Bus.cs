@@ -18,7 +18,7 @@ namespace Garage
 
         public Bus(string RegNr, string Model, string Color, string Brand, string Size, int Seats) : base(RegNr, Model, Color, Brand)
         {
-            this.v = Vtype.Car;
+            this.V = Vtype.Car;
             this.Size = Size;
             this.Seats = Seats;
         }
