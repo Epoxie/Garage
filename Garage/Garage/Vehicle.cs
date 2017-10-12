@@ -39,11 +39,16 @@ namespace Garage
 
         }
 
+        public Vehicle(DateTime ParkTime)
+        {
+            ParkTime = DateTime.Now;
+        }
+
         public Vehicle(string RegNr, string Model, string Color, string Brand)
         {
             this.RegNr = RegNr;
             this.Model = Model;
-            this.ParkTime = DateTime.Now;
+            ParkTime = DateTime.Now;
             this.Color = Color;
             this.Brand = Brand;
         }
