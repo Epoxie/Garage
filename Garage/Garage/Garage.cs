@@ -9,14 +9,17 @@ namespace Garage
     class Garage
     {
         List<Vehicle> GarageList = new List<Vehicle>();
+        int SizeOfGarage = 6;
 
         public Garage()
         {
-            // default constructor, could add default setup with some vehicles already here
-
+            for (int i = 0; i < SizeOfGarage; i++)
+            {
+                GarageList[i] = null;
+            }
         }
 
-        public List<Vehicle> SearchByRegnr(string regnr)
+        public List<Vehicle> SearchByRegNr(string regnr)
         {
             var returnVehicle =
                 from v in GarageList
@@ -30,14 +33,27 @@ namespace Garage
             return GarageList;
         }
 
-        public void AddVehicle(Vehicle newVehicle)
+        public bool AddVehicle(Vehicle newVehicle)
         {
-            GarageList.Add(newVehicle);
+            for (int i = 0; i < SizeOfGarage; i++)
+            {
+                if (GarageList[i] == null)
+                {
+                    GarageList[i] = newVehicle;
+                    return true;
+                }
+            }
+            return false;
         }
 
-        public void removeVehicle(Vehicle removeVehicle)
+        public void RemoveVehicle(Vehicle removeVehicle)
         {
-            GarageList.Remove(removeVehicle);
+            GarageList[GarageList.IndexOf(removeVehicle)] = null;
+        }
+
+        public int ParkingSpace(Vehicle parkedVehicle)
+        {
+            return GarageList.IndexOf(parkedVehicle);
         }
 
         public List<Vehicle> SearchWithOptions(string RegNr = "", string Model = "", string Color = "", string Brand = "", DateTime ParkTime = new DateTime())
