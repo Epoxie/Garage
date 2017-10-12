@@ -137,6 +137,13 @@ namespace Garage
                         Console.WriteLine("Enter registration number: ");
                         inputs = Console.ReadLine();
 
+                        if (garage.RegNrExists(inputs))
+                        {
+                            Console.WriteLine("Sorry, that seems to be an incorrect registration number.");
+                            Console.ReadKey();
+                            break;
+                        }
+
                         newVehicle.RegNr = inputs;
 
                         Console.WriteLine("Enter brand: ");
@@ -243,49 +250,44 @@ namespace Garage
                         
                         break;
                     case '5':
-                        Console.WriteLine("Enter registration number: ");
-                        inputs = Console.ReadLine();
-                        garage.SearchByRegNr(inputs);
-                        break;
-                    case '6':
                         Console.Clear();
-                        List<Vehicle> tempVList;
+                        List<Vehicle> newVList;
                         Console.Write("Registration Number: ");
-                        string tempRegNr = Console.ReadLine();
+                        string newRegNr = Console.ReadLine();
                         Console.Write("Model: ");
-                        string tempModel = Console.ReadLine();
+                        string newModel = Console.ReadLine();
                         Console.Write("Color: ");
-                        string tempColor = Console.ReadLine();
+                        string newColor = Console.ReadLine();
                         Console.Write("Brand: ");
-                        string tempBrand = Console.ReadLine();
+                        string newBrand = Console.ReadLine();
                         Console.WriteLine("Time of Parking? (y/n)");
-                        string tempInput = Console.ReadLine();
+                        string newInput = Console.ReadLine();
                         try
                         {
-                            if (tempInput[0] == 'y')
+                            if (newInput[0] == 'y')
                             {
                                 regex = new Regex(@"[^\d]");
                                 Console.Write("Time in year: ");
-                                int tempYear = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                int newYear = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
                                 Console.Write("Month: ");
-                                int tempMonth = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                int newMonth = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
                                 Console.Write("Day: ");
-                                int tempDay = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                int newDay = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
                                 Console.Write("Hour: ");
-                                int tempHour = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                int newHour = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
                                 Console.Write("Minute: ");
-                                int tempMinute = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                int newMinute = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
                                 Console.Write("Second: ");
-                                int tempSecond = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
-                                tempVList = garage.SearchWithOptions(tempRegNr, tempModel, tempColor, tempBrand, new DateTime(tempYear, tempMonth, tempDay, tempHour, tempMinute, tempSecond));
+                                int newSecond = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                newVList = garage.SearchWithOptions(newRegNr, newModel, newColor, newBrand, new DateTime(newYear, newMonth, newDay, newHour, newMinute, newSecond));
                             }
                             else
-                                tempVList = garage.SearchWithOptions(tempRegNr, tempModel, tempColor, tempBrand);
+                                newVList = garage.SearchWithOptions(newRegNr, newModel, newColor, newBrand);
                         } catch
                         {
-                            tempVList = garage.SearchWithOptions(tempRegNr, tempModel, tempColor, tempBrand);
+                            newVList = garage.SearchWithOptions(newRegNr, newModel, newColor, newBrand);
                         }
-                        foreach (Vehicle v in tempVList)
+                        foreach (Vehicle v in newVList)
                         {
                             Console.WriteLine(v.ToString());
                         }
