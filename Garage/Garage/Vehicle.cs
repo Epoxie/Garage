@@ -21,7 +21,7 @@ namespace Garage
             Motorcycle
         }
 
-        public Vtype v;
+        public Vtype V;
 
         public  string BasicInfo()
         {
