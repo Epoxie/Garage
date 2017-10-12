@@ -13,6 +13,7 @@ namespace Garage
     {
         static Garage garage = new Garage();
         static double pricePerSecond = 2;
+        
 
         public struct parseInt
         {
@@ -43,7 +44,9 @@ namespace Garage
 
         static void MainMenu()
         {
+            Regex regex = new Regex(@"[^\d]");
             bool runMain = true;
+            
 
             while (runMain)
             {
@@ -51,24 +54,28 @@ namespace Garage
                 Console.Clear();
 
                 Console.WriteLine("0: Exit\n" +
-                    "1: Options\n" +
-                    "2: Display Vehicle/Vehicles\n" +
-                    "3: Check In\n" +
-                    "4: Check Out\n" +
-                    "5: Search Reg Number\n" +
-                    "6: Search By");
+                    "1: Display Vehicle/Vehicles\n" +
+                    "2: Check In\n" +
+                    "3: Check Out\n" +
+                    "4: Search By");
 
+                char input;
+                try
+                {
+                    input = Console.ReadLine()[0];
+                }
+                catch 
+                {
+                    input = ' ';
 
-                char input = Console.ReadLine()[0];
+                }
+
                 string inputs = "";
 
                 switch (input)
                 {
                     case '0':
                         runMain = false;
-                        break;
-                    case '1':
-                        MenuOptions();
                         break;
                     case '2':
                         //Return basic info for all vehicles
@@ -154,44 +161,46 @@ namespace Garage
                                 Console.WriteLine("Enter nr of seats: ");
                                 inputs = Console.ReadLine();
 
-                                
-                                try
+                                parseint = ParseInputToInt(regex.Replace(inputs, ""));
+
+                                if (parseint.success)
                                 {
-                                    Regex regex = new Regex(@"[^\d]");
-                                    ((Bus)newVehicle).Seats = Int32.Parse(regex.Replace(inputs, ""));
+                                    ((Bus)newVehicle).Seats = parseint.ret;
                                 }
+                               
 
                                 Console.WriteLine("Enter size: ");
                                 inputs = Console.ReadLine();
-                                ((Bus)newVehicle).Size = inputs;
 
+
+                                ((Bus)newVehicle).Size = inputs;                          
                                 break;
+
                             case Vehicle.Vtype.Car:
                                 Console.WriteLine("Enter production year as number: ");
                                 inputs = Console.ReadLine();
-                                try
-                                {
-                                    Regex regex = new Regex(@"[^\d]");
-                                    ((Car)newVehicle).ProdYear = Int32.Parse(regex.Replace(inputs, ""));
-                                }
-                                catch (Exception e)
+
+
+                                regex = new Regex(@"[^\d]");
+                                parseint = ParseInputToInt(regex.Replace(inputs, ""));
+
+                                if (parseint.success)
                                 {
                                     ((Car)newVehicle).ProdYear = parseint.ret;
-                                }                              
-                                break;
+                                }
 
+                                break;
                             case Vehicle.Vtype.Truck:
                                 Console.WriteLine("Enter size: ");
                                 inputs = Console.ReadLine();
                                 ((Truck)newVehicle).Size = inputs;
                                 break;
+
                             case Vehicle.Vtype.Motorcycle:
-                                try
-                                {
-                                    Regex regex = new Regex(@"[^\d]");
-                                    ((Motorcycle)newVehicle).Class = Int32.Parse(regex.Replace(inputs, ""));
-                                }
-                                catch (Exception e)
+
+                                parseint = ParseInputToInt(regex.Replace(inputs, ""));
+
+                                if (parseint.success)
                                 {
                                     ((Motorcycle)newVehicle).Class = parseint.ret;
                                 }
@@ -255,7 +264,7 @@ namespace Garage
                         {
                             if (tempInput[0] == 'y')
                             {
-                                Regex regex = new Regex(@"[^\d]");
+                                regex = new Regex(@"[^\d]");
                                 Console.Write("Time in year: ");
                                 int tempYear = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
                                 Console.Write("Month: ");
@@ -289,36 +298,6 @@ namespace Garage
             }
         }
 
-        static void MenuOptions()
-        {
-            bool runOptions = true;
-
-            while (runOptions)
-            {
-                Console.WriteLine("0: Exit\n" +
-                    "1: Background Color\n" +
-                    "2: Text Color\n");
-
-                char input = Console.ReadLine()[0];
-
-                switch (input)
-                {
-                    case '0':
-                        runOptions = false;
-                        break;
-                    case '1':
-                        Console.BackgroundColor = ConsoleColor.Blue;
-                        break;
-                    case '2':
-                        Console.ForegroundColor = ConsoleColor.White;
-                        break;
-                    default:
-                        Console.WriteLine("Not a valid option!");
-                        break;
-                }
-            }
-
-        }
 
         static void Main(string[] args)
         {
