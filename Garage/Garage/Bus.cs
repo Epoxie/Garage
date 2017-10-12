@@ -8,7 +8,7 @@ namespace Garage
 {
     class Bus : Vehicle
     {
-        string size { get; set; }
-        int seats { get; set; }
+        string Size { get; set; }
+        int Seats { get; set; }
     }
 }
