@@ -8,10 +8,10 @@ namespace Garage
 {
     class Vehicle
     {
-        string RegNr { get; set; }
-        string Model { get; set;}
-        DateTime ParkTime { get; set; }
-        string Color { get; set; }
-        string Brand { get; set; }
+        public string RegNr { get; set; }
+        public string Model { get; set;}
+        public DateTime ParkTime { get; set; }
+        public string Color { get; set; }
+        public string Brand { get; set; }
     }
 }

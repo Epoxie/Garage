@@ -39,12 +39,14 @@ namespace Garage
             GarageList.Remove(removeVehicle);
         }
 
-        public List<Vehicle> SearchWithOptions(string RegNr = "", string Model = "", string Size = "", int Class = 0, int ProdYear = 0, int Seats = 0)
+        public List<Vehicle> SearchWithOptions(string RegNr = "", string Model = "", string Color = "", string Brand = "")
         {
             var returnList =
                 from v in GarageList
                 where v.RegNr.ToLower().Contains(RegNr.ToLower())
-                where v.Model.ToLower()
+                where v.Model.ToLower().Contains(Model.ToLower())
+                where v.Colo
+            return returnList;
         }
     }
 }

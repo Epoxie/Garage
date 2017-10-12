@@ -8,6 +8,6 @@ namespace Garage
 {
     class Motorcycle : Vehicle
     {
-        int Class { get; set; }
+        public int Class { get; set; }
     }
 }
