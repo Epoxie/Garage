@@ -33,5 +33,19 @@ namespace Garage
 
             return "RegNr: " +RegNr +"\n-Brand: " +Brand + "\n--Model: " + Model + "\n---Color: " + Color + "\n----Time Parked: " + ParkTime;
         }
+
+        public Vehicle()
+        {
+
+        }
+
+        public Vehicle(string RegNr, string Model, string Color, string Brand)
+        {
+            this.RegNr = RegNr;
+            this.Model = Model;
+            this.ParkTime = DateTime.Now;
+            this.Color = Color;
+            this.Brand = Brand;
+        }
     }
 }
