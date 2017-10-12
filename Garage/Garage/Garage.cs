@@ -13,15 +13,16 @@ namespace Garage
         public Garage()
         {
             // default constructor, could add default setup with some vehicles already here
+
         }
 
-        public Vehicle SearchByRegnr(string regnr)
+        public List<Vehicle> SearchByRegnr(string regnr)
         {
             var returnVehicle =
                 from v in GarageList
-                where v.regnr == regnr
+                where v.RegNr == regnr
                 select v;
-            return returnVehicle;
+            return returnVehicle.ToList();
         }
 
         public List<Vehicle> GetAllVehicles()
@@ -39,14 +40,17 @@ namespace Garage
             GarageList.Remove(removeVehicle);
         }
 
-        public List<Vehicle> SearchWithOptions(string RegNr = "", string Model = "", string Color = "", string Brand = "")
+        public List<Vehicle> SearchWithOptions(string RegNr = "", string Model = "", string Color = "", string Brand = "", DateTime ParkTime = new DateTime())
         {
             var returnList =
                 from v in GarageList
+                where v.ParkTime >= ParkTime
                 where v.RegNr.ToLower().Contains(RegNr.ToLower())
                 where v.Model.ToLower().Contains(Model.ToLower())
-                where v.Colo
-            return returnList;
+                where v.Color.ToLower().Contains(Color.ToLower())
+                where v.Brand.ToLower().Contains(Brand.ToLower())
+                select v;
+            return returnList.ToList();
         }
     }
 }
