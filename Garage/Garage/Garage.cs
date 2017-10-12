@@ -67,6 +67,19 @@ namespace Garage
             return GarageList.IndexOf(parkedVehicle) + 1;
         }
 
+        public bool RegNrExists(String RegNr)
+        {
+            foreach (Vehicle vehicle in GarageList)
+            {
+                if (vehicle != null)
+                {
+                    if (vehicle.RegNr == RegNr)
+                        return true;
+                }
+            }
+            return false;
+        }
+
         public List<Vehicle> SearchWithOptions(string RegNr = "", string Model = "", string Color = "", string Brand = "", DateTime ParkTime = new DateTime())
         {
             var returnList =
