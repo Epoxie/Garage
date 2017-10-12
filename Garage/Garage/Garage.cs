@@ -9,6 +9,7 @@ namespace Garage
     class Garage
     {
         List<Vehicle> GarageList = new List<Vehicle>();
+        int SizeOfGarage = 6;
 
         public Garage()
         {
@@ -16,7 +17,7 @@ namespace Garage
 
         }
 
-        public List<Vehicle> SearchByRegnr(string regnr)
+        public List<Vehicle> SearchByRegNr(string regnr)
         {
             var returnVehicle =
                 from v in GarageList
