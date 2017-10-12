@@ -9,5 +9,16 @@ namespace Garage
     class Motorcycle : Vehicle
     {
         public int Class { get; set; }
+
+        public Motorcycle()
+        {
+
+        }
+
+        public Motorcycle(string RegNr, string Model, string Color, string Brand, int Class) : base(RegNr, Model, Color, Brand)
+        {
+            this.v = Vtype.Car;
+            this.Class = Class;
+        }
     }
 }
