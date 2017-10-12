@@ -23,6 +23,7 @@ namespace Garage
         {
             var returnVehicle =
                 from v in GarageList
+                where v != null
                 where v.RegNr == regnr
                 select v;
             return returnVehicle.ToList();
