@@ -13,7 +13,6 @@ namespace Garage
     {
         static Garage garage = new Garage();
         static double pricePerSecond = 2;
-        static bool isRunning = true;
 
         public struct parseInt
         {
@@ -88,10 +87,14 @@ namespace Garage
 
                         else
                         {
-                            Console.WriteLine(garage.SearchByRegNr(inputs).ElementAt(0));
+                            try
+                            {
+                                Console.WriteLine(garage.SearchByRegNr(inputs).ElementAt(0).ToString());
+                            }
+                            catch { Console.WriteLine("Could not find that vehicle."); }
                         }
                         //Return all info for a specific vehicle by reg number
-
+                        Console.ReadKey();
                         break;
                     case '3':
                         Console.WriteLine("0: Exit\n" +
@@ -110,19 +113,15 @@ namespace Garage
                                 break;
                             case '1':
                                 newVehicle = new Bus();
-                                newVehicle.v = Vehicle.Vtype.Bus;
                                 break;
                             case '2':
                                 newVehicle = new Car();
-                                newVehicle.v = Vehicle.Vtype.Car;
                                 break;
                             case '3':
                                 newVehicle = new Motorcycle();
-                                newVehicle.v = Vehicle.Vtype.Motorcycle;
                                 break;
                             case '4':
                                 newVehicle = new Truck();
-                                newVehicle.v = Vehicle.Vtype.Truck;
                                 break;
                             default:
                                 break;
@@ -149,16 +148,17 @@ namespace Garage
                         newVehicle.Color = inputs;
 
                         //Depending on type present additional options
-                        switch (newVehicle.v)
+                        switch (newVehicle.V)
                         {
                             case Vehicle.Vtype.Bus:
                                 Console.WriteLine("Enter nr of seats: ");
                                 inputs = Console.ReadLine();
 
-                                parseint = ParseInputToInt(inputs);
-                                if (parseint.success)
+                                
+                                try
                                 {
-                                    ((Bus)newVehicle).Seats = parseint.ret;
+                                    Regex regex = new Regex(@"[^\d]");
+                                    ((Bus)newVehicle).Seats = Int32.Parse(regex.Replace(inputs, ""));
                                 }
 
                                 Console.WriteLine("Enter size: ");
@@ -169,9 +169,12 @@ namespace Garage
                             case Vehicle.Vtype.Car:
                                 Console.WriteLine("Enter production year as number: ");
                                 inputs = Console.ReadLine();
-
-                                parseint = ParseInputToInt(inputs);
-                                if (parseint.success)
+                                try
+                                {
+                                    Regex regex = new Regex(@"[^\d]");
+                                    ((Car)newVehicle).ProdYear = Int32.Parse(regex.Replace(inputs, ""));
+                                }
+                                catch (Exception e)
                                 {
                                     ((Car)newVehicle).ProdYear = parseint.ret;
                                 }                              
@@ -183,10 +186,12 @@ namespace Garage
                                 ((Truck)newVehicle).Size = inputs;
                                 break;
                             case Vehicle.Vtype.Motorcycle:
-
-                                parseint = ParseInputToInt(inputs);
-
-                                if (parseint.success)
+                                try
+                                {
+                                    Regex regex = new Regex(@"[^\d]");
+                                    ((Motorcycle)newVehicle).Class = Int32.Parse(regex.Replace(inputs, ""));
+                                }
+                                catch (Exception e)
                                 {
                                     ((Motorcycle)newVehicle).Class = parseint.ret;
                                 }
@@ -202,7 +207,13 @@ namespace Garage
                         Console.WriteLine("Registration number: ");
                         inputs = Console.ReadLine();
 
-                        Vehicle vehicleToRemove = garage.SearchByRegNr(inputs).ElementAt(0);
+                        Vehicle vehicleToRemove = null;
+                        try
+                        {
+                            vehicleToRemove = garage.SearchByRegNr(inputs).ElementAt(0);
+                        }
+                        catch { Console.WriteLine("Couldn't find that Vehicle."); }
+                        
 
                         if (vehicleToRemove != null)
                         {
@@ -311,6 +322,10 @@ namespace Garage
 
         static void Main(string[] args)
         {
+            // add some testVehicle string RegNr, string Model, string Color, string Brand, int ProdYear
+            garage.AddVehicle(new Car("123-456", "Ö-7000", "Super Blue", "Örjans Egna Bilmärke", 1975));
+            // add some testVehicle string RegNr, string Model, string Color, string Brand, int Class
+            garage.AddVehicle(new Motorcycle("FUCK-YOU", "SpeedBike", "Very Red", "Fraticelli", 5));
 
             MainMenu();
 

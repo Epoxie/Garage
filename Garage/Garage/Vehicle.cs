@@ -21,11 +21,11 @@ namespace Garage
             Motorcycle
         }
 
-        public Vtype v;
+        public Vtype V;
 
         public  string BasicInfo()
         {
-            return "RegNr: " + RegNr + "\n-Vehicle Type: " + v;
+            return "RegNr: " + RegNr + "\n-Vehicle Type: " + V;
         }
         
         public override string ToString()
@@ -39,11 +39,16 @@ namespace Garage
 
         }
 
+        public Vehicle(DateTime ParkTime)
+        {
+            ParkTime = DateTime.Now;
+        }
+
         public Vehicle(string RegNr, string Model, string Color, string Brand)
         {
             this.RegNr = RegNr;
             this.Model = Model;
-            this.ParkTime = DateTime.Now;
+            ParkTime = DateTime.Now;
             this.Color = Color;
             this.Brand = Brand;
         }

@@ -8,12 +8,11 @@ namespace Garage
 {
     class Checkout
     {
-          //public static void TimeTest()
-          //{
-          //  Car C = new Car();
-          //  DateTime t;
-          //  t = DateTime
-          //  b = t - C.ParkTime;
-          //}
+        Vehicle TimeFee = new Vehicle(DateTime ParkTime);
+        DateTime CheckoutTime = DateTime.Now;
+        ParkTime
+        TimeSpan diff = Math.Abs(CheckoutTime - ParkTime);
+        double Fee = CheckoutTime
+
     }
 }
