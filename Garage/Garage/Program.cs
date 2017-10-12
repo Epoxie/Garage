@@ -12,11 +12,10 @@ namespace Garage
     class Program
     {
         static Garage garage = new Garage();
-        static ConsoleKey key;
-        static int cRow = 0;
-        static int cCol = 0;
 
-        // static bool isRunning = true;
+        static bool isRunning = true;
+
+
 
         static void MainMenu()
         {
@@ -24,6 +23,7 @@ namespace Garage
 
             while (runMain)
             {
+                Console.Clear();
 
                 Console.WriteLine("0: Exit\n" +
                     "1: Options\n" +
@@ -52,6 +52,7 @@ namespace Garage
                         inputs = Console.ReadLine();
 
                         if (inputs.Trim().Equals(""))
+
                         {
                             foreach (var vehicle in garage.GetAllVehicles())
                             {
@@ -99,22 +100,73 @@ namespace Garage
                             default:
                                 break;
                         }
-
+                        
                         Console.WriteLine("Enter registration number: ");
                         inputs = Console.ReadLine();
 
                         newVehicle.RegNr = inputs;
 
+                        Console.WriteLine("Enter brand: ");
+                        inputs = Console.ReadLine();
+
+                        newVehicle.Brand = inputs;
+
+                        Console.WriteLine("Enter Model: ");
+                        inputs = Console.ReadLine();
+
+                        newVehicle.Model = inputs;
+
+                        Console.WriteLine("Enter Color: ");
+                        inputs = Console.ReadLine();
+
+                        newVehicle.Color = inputs;
+
                         //Depending on type present additional options
                         switch (newVehicle.v)
                         {
                             case Vehicle.Vtype.Bus:
+                                Console.WriteLine("Enter nr of seats: ");
+                                inputs = Console.ReadLine();
+
+                                try
+                                {
+                                    ((Bus)newVehicle).Seats = int.Parse(inputs);
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine("The input was not a whole number! " +e);                                 
+                                }
+                                Console.WriteLine("Enter size: ");
+                                inputs = Console.ReadLine();
+                                ((Bus)newVehicle).Size = inputs;
+
                                 break;
                             case Vehicle.Vtype.Car:
+                                Console.WriteLine("Enter production year as number: ");
+                                inputs = Console.ReadLine();
+                                try
+                                {
+                                    ((Car)newVehicle).ProdYear = int.Parse(inputs);
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine("The input was not a whole number! " + e);
+                                }
                                 break;
                             case Vehicle.Vtype.Truck:
+                                Console.WriteLine("Enter size: ");
+                                inputs = Console.ReadLine();
+                                ((Truck)newVehicle).Size = inputs;
                                 break;
                             case Vehicle.Vtype.Motorcycle:
+                                try
+                                {
+                                    ((Motorcycle)newVehicle).Class = int.Parse(inputs);
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine("The input was not a whole number! " + e);
+                                }
                                 break;
                             default:
                                 break;
@@ -123,8 +175,26 @@ namespace Garage
                         garage.AddVehicle(newVehicle);
                         break;
                     case '4':
+                        Console.WriteLine("Registration number: ");
+                        inputs = Console.ReadLine();
+
+                        Vehicle vehicleToRemove = garage.SearchByRegNr(inputs).ElementAt(0);
+
+                        if (vehicleToRemove != null)
+                        {
+                            double time = DateTime.Now.Subtract(vehicleToRemove.ParkTime).TotalSeconds;
+                            double price = pricePerSecond * time;
+
+                            garage.RemoveVehicle(vehicleToRemove);
+
+                            Console.WriteLine("Price for {0} seconds, is {1} kronor", time, price);
+                            Console.ReadKey(false);
+                        }
+
+                        
                         break;
                     case '5':
+                        Console.WriteLine("Enter registration number: ");
                         inputs = Console.ReadLine();
                         garage.SearchByRegNr(inputs);
                         break;
@@ -210,42 +280,9 @@ namespace Garage
 
         }
 
-        static void KeyInput()
-        {
-            
-            while (true)
-            {
-                key = Console.ReadKey().Key;
-
-                switch (key)
-                {
-
-                    case ConsoleKey.Enter:
-                        break;
-                    case ConsoleKey.Escape:
-                        break;
-                    case ConsoleKey.UpArrow:
-                        Console.BackgroundColor = ConsoleColor.DarkBlue;
-                        cRow--;
-                        Console.SetCursorPosition(cCol, cRow);
-                        string buffer = Console.Out.NewLine;
-                        Console.WriteLine(buffer);
-                        break;
-                    case ConsoleKey.DownArrow:
-                        cRow++;
-                        Console.SetCursorPosition(cCol, cRow);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            
-        }
-
         static void Main(string[] args)
         {
-            //Thread thread = new Thread(KeyInput);
-            //thread.Start();
+
             MainMenu();
 
         }
