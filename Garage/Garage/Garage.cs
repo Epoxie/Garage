@@ -60,6 +60,7 @@ namespace Garage
         {
             var returnList =
                 from v in GarageList
+                where v != null
                 where v.ParkTime >= ParkTime
                 where v.RegNr.ToLower().Contains(RegNr.ToLower())
                 where v.Model.ToLower().Contains(Model.ToLower())
