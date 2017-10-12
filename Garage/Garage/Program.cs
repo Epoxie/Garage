@@ -15,7 +15,32 @@ namespace Garage
         static double pricePerSecond = 2;
         static bool isRunning = true;
 
+        public struct parseInt
+        {
+            public int ret;
+            public bool success;
+        };
 
+        static parseInt ParseInputToInt(string input)
+        {
+            int ret = 0;
+            parseInt pi = new parseInt();
+
+            try
+            {
+                ret = int.Parse(input.Trim());
+                pi.ret = ret;
+                pi.success = true;
+
+            }
+            catch (Exception)
+            {
+
+                pi.success = false;
+            }
+
+            return pi;
+        }
 
         static void MainMenu()
         {
@@ -23,6 +48,7 @@ namespace Garage
 
             while (runMain)
             {
+                parseInt parseint;
                 Console.Clear();
 
                 Console.WriteLine("0: Exit\n" +
@@ -129,14 +155,12 @@ namespace Garage
                                 Console.WriteLine("Enter nr of seats: ");
                                 inputs = Console.ReadLine();
 
-                                try
+                                parseint = ParseInputToInt(inputs);
+                                if (parseint.success)
                                 {
-                                    ((Bus)newVehicle).Seats = int.Parse(inputs);
+                                    ((Bus)newVehicle).Seats = parseint.ret;
                                 }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine("The input was not a whole number! " +e);                                 
-                                }
+
                                 Console.WriteLine("Enter size: ");
                                 inputs = Console.ReadLine();
                                 ((Bus)newVehicle).Size = inputs;
@@ -145,29 +169,28 @@ namespace Garage
                             case Vehicle.Vtype.Car:
                                 Console.WriteLine("Enter production year as number: ");
                                 inputs = Console.ReadLine();
-                                try
+
+                                parseint = ParseInputToInt(inputs);
+                                if (parseint.success)
                                 {
-                                    ((Car)newVehicle).ProdYear = int.Parse(inputs);
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine("The input was not a whole number! " + e);
-                                }
+                                    ((Car)newVehicle).ProdYear = parseint.ret;
+                                }                              
                                 break;
+
                             case Vehicle.Vtype.Truck:
                                 Console.WriteLine("Enter size: ");
                                 inputs = Console.ReadLine();
                                 ((Truck)newVehicle).Size = inputs;
                                 break;
                             case Vehicle.Vtype.Motorcycle:
-                                try
+
+                                parseint = ParseInputToInt(inputs);
+
+                                if (parseint.success)
                                 {
-                                    ((Motorcycle)newVehicle).Class = int.Parse(inputs);
+                                    ((Motorcycle)newVehicle).Class = parseint.ret;
                                 }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine("The input was not a whole number! " + e);
-                                }
+
                                 break;
                             default:
                                 break;
@@ -185,11 +208,16 @@ namespace Garage
                         {
                             double time = DateTime.Now.Subtract(vehicleToRemove.ParkTime).TotalSeconds;
                             double price = pricePerSecond * time;
+                            Console.WriteLine("{2} parked at spot {3}. Price for {0} seconds, is {1} kronor", time, price, vehicleToRemove.RegNr, garage.ParkingSpace(vehicleToRemove));
+                            Console.WriteLine("Do you want to accept y or cancel n?");
+                            char confirm = Console.ReadLine()[0];
 
-                            garage.RemoveVehicle(vehicleToRemove);
+                            if (confirm == 'y')
+                            {
+                                garage.RemoveVehicle(vehicleToRemove);
+                            }
 
-                            Console.WriteLine("Price for {0} seconds, is {1} kronor", time, price);
-                            Console.ReadKey(false);
+                            Console.WriteLine("The vehicle was removed");
                         }
 
                         
