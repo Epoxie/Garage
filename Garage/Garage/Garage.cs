@@ -30,7 +30,17 @@ namespace Garage
 
         public List<Vehicle> GetAllVehicles()
         {
-            return GarageList;
+            List<Vehicle> retList = new List<Vehicle>();
+
+            foreach (var vehicle in GarageList)
+            {
+                if (vehicle != null)
+                {
+                    retList.Add(vehicle);
+                }
+            }
+
+            return retList;
         }
 
         public bool AddVehicle(Vehicle newVehicle)
