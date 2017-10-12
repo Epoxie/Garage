@@ -286,7 +286,7 @@ namespace Garage
             // add some testVehicle string RegNr, string Model, string Color, string Brand, int ProdYear
             garage.AddVehicle(new Car("123-456", "Ö-7000", "Super Blue", "Örjans Egna Bilmärke", 1975));
             // add some testVehicle string RegNr, string Model, string Color, string Brand, int Class
-            garage.AddVehicle(new Car("123-456", "Ö-7000", "Super Blue", "Örjans Egna Bilmärke", 1975));
+            garage.AddVehicle(new Motorcycle("FUCK-YOU", "SpeedBike", "Very Red", "Fraticelli", 5));
 
             MainMenu();
 
