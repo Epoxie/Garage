@@ -12,7 +12,7 @@ namespace Garage
     class Program
     {
         static Garage garage = new Garage();
-
+        static double pricePerSecond = 2;
         static bool isRunning = true;
 
 
