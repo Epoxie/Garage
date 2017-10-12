@@ -20,7 +20,7 @@ namespace Garage
         {
             this.v = Vtype.Car;
             this.Size = Size;
-            this.Seats = Seats
+            this.Seats = Seats;
         }
     }
 }
