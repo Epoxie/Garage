@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Text.RegularExpressions;
+
 
 namespace Garage
 {
@@ -11,7 +13,7 @@ namespace Garage
     {
         static Garage garage = new Garage();
 
-        static double pricePerSecond = 2;
+        static bool isRunning = true;
 
 
 
@@ -198,6 +200,48 @@ namespace Garage
                         garage.SearchByRegNr(inputs);
                         break;
                     case '6':
+                        Console.Clear();
+                        List<Vehicle> tempVList;
+                        Console.Write("Registration Number: ");
+                        string tempRegNr = Console.ReadLine();
+                        Console.Write("Model: ");
+                        string tempModel = Console.ReadLine();
+                        Console.Write("Color: ");
+                        string tempColor = Console.ReadLine();
+                        Console.Write("Brand: ");
+                        string tempBrand = Console.ReadLine();
+                        Console.WriteLine("Time of Parking? (y/n)");
+                        string tempInput = Console.ReadLine();
+                        try
+                        {
+                            if (tempInput[0] == 'y')
+                            {
+                                Regex regex = new Regex(@"[^\d]");
+                                Console.Write("Time in year: ");
+                                int tempYear = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                Console.Write("Month: ");
+                                int tempMonth = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                Console.Write("Day: ");
+                                int tempDay = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                Console.Write("Hour: ");
+                                int tempHour = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                Console.Write("Minute: ");
+                                int tempMinute = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                Console.Write("Second: ");
+                                int tempSecond = Int32.Parse(regex.Replace(Console.ReadLine(), ""));
+                                tempVList = garage.SearchWithOptions(tempRegNr, tempModel, tempColor, tempBrand, new DateTime(tempYear, tempMonth, tempDay, tempHour, tempMinute, tempSecond));
+                            }
+                            else
+                                tempVList = garage.SearchWithOptions(tempRegNr, tempModel, tempColor, tempBrand);
+                        } catch
+                        {
+                            tempVList = garage.SearchWithOptions(tempRegNr, tempModel, tempColor, tempBrand);
+                        }
+                        foreach (Vehicle v in tempVList)
+                        {
+                            Console.WriteLine(v.ToString());
+                        }
+                        Console.ReadKey();
                         break;
                     default:
                         Console.WriteLine("Not a valid option!");
