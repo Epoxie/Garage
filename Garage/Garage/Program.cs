@@ -13,7 +13,6 @@ namespace Garage
     {
         static Garage garage = new Garage();
         static double pricePerSecond = 2;
-        static bool isRunning = true;
 
 
 
@@ -62,7 +61,11 @@ namespace Garage
 
                         else
                         {
-                            Console.WriteLine(garage.SearchByRegNr(inputs).ElementAt(0));
+                            try
+                            {
+                                Console.WriteLine(garage.SearchByRegNr(inputs).ElementAt(0));
+                            }
+                            catch { Console.WriteLine("Could not find that vehicle."); }
                         }
                         //Return all info for a specific vehicle by reg number
 
@@ -84,19 +87,15 @@ namespace Garage
                                 break;
                             case '1':
                                 newVehicle = new Bus();
-                                newVehicle.v = Vehicle.Vtype.Bus;
                                 break;
                             case '2':
                                 newVehicle = new Car();
-                                newVehicle.v = Vehicle.Vtype.Car;
                                 break;
                             case '3':
                                 newVehicle = new Motorcycle();
-                                newVehicle.v = Vehicle.Vtype.Motorcycle;
                                 break;
                             case '4':
                                 newVehicle = new Truck();
-                                newVehicle.v = Vehicle.Vtype.Truck;
                                 break;
                             default:
                                 break;
@@ -123,7 +122,7 @@ namespace Garage
                         newVehicle.Color = inputs;
 
                         //Depending on type present additional options
-                        switch (newVehicle.v)
+                        switch (newVehicle.V)
                         {
                             case Vehicle.Vtype.Bus:
                                 Console.WriteLine("Enter nr of seats: ");
