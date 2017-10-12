@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Garage
 {
-    class Bus
+    class Bus : Vehicle
     {
     }
 }
