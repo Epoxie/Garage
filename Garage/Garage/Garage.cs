@@ -51,6 +51,11 @@ namespace Garage
             GarageList[GarageList.IndexOf(removeVehicle)] = null;
         }
 
+        public int ParkingSpace(Vehicle parkedVehicle)
+        {
+            return GarageList.IndexOf(parkedVehicle);
+        }
+
         public List<Vehicle> SearchWithOptions(string RegNr = "", string Model = "", string Color = "", string Brand = "", DateTime ParkTime = new DateTime())
         {
             var returnList =
