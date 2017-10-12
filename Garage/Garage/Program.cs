@@ -179,7 +179,13 @@ namespace Garage
                         Console.WriteLine("Registration number: ");
                         inputs = Console.ReadLine();
 
-                        Vehicle vehicleToRemove = garage.SearchByRegNr(inputs).ElementAt(0);
+                        Vehicle vehicleToRemove = null;
+                        try
+                        {
+                            vehicleToRemove = garage.SearchByRegNr(inputs).ElementAt(0);
+                        }
+                        catch { Console.WriteLine("Couldn't find that Vehicle."); }
+                        
 
                         if (vehicleToRemove != null)
                         {
