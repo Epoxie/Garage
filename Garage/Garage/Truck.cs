@@ -17,7 +17,7 @@ namespace Garage
 
         public Truck(string RegNr, string Model, string Color, string Brand, string Size) : base(RegNr, Model, Color, Brand)
         {
-            this.V = Vtype.Car;
+            this.V = Vtype.Truck;
             this.Size = Size;
         }
     }
