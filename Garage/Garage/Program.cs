@@ -331,5 +331,15 @@ namespace Garage
             MainMenu();
 
         }
+
+        /*
+        static void SaveToFile(List<Vehicle> saveList)
+        {
+            foreach(Vehicle v in saveList)
+            {
+                System.IO.File.WriteAllText(@"C:\Users\elev\source\repos\Garage\data\testSave.txt", json);
+            }
+        }
+        */
     }
 }
