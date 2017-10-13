@@ -10,7 +10,7 @@ namespace Garage
     {
         public string Size { get; set; }
 
-        public Truck()
+        public Truck():base()
         {
 
         }

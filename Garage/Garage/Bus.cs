@@ -11,7 +11,7 @@ namespace Garage
         public string Size { get; set; }
         public int Seats { get; set; }
 
-        public Bus()
+        public Bus():base()
         {
 
         }

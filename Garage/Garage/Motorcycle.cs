@@ -10,7 +10,7 @@ namespace Garage
     {
         public int Class { get; set; }
 
-        public Motorcycle()
+        public Motorcycle():base()
         {
 
         }

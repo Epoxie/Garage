@@ -10,7 +10,7 @@ namespace Garage
     {
         public int ProdYear { get; set; }
 
-        public Car ()
+        public Car ():base()
         {
 
         }
