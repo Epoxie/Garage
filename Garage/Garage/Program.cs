@@ -15,12 +15,14 @@ namespace Garage
         static double pricePerSecond = 2;
         
 
+        //Struct for parsing input, so we dont need try/catch everywhere
         public struct parseInt
         {
             public int ret;
             public bool success;
         };
 
+        //Method for parsing input, returning a parseint struct
         static parseInt ParseInputToInt(string input)
         {
             int ret = 0;
@@ -42,6 +44,8 @@ namespace Garage
             return pi;
         }
 
+
+        //Main menu
         static void MainMenu()
         {
             Regex regex = new Regex(@"[^\d]");
@@ -50,6 +54,7 @@ namespace Garage
 
             while (runMain)
             {
+                //Declares a parseint struct and clears console before every loop
                 parseInt parseint;
                 Console.Clear();
 
@@ -77,7 +82,7 @@ namespace Garage
                     case '0':
                         runMain = false;
                         break;
-                    case '2':
+                    case '1':
                         //Return basic info for all vehicles
                         Console.WriteLine("Type in a registration number or leave blank");
 
@@ -103,36 +108,67 @@ namespace Garage
                         //Return all info for a specific vehicle by reg number
                         Console.ReadKey();
                         break;
-                    case '3':
+                    case '2':
+
+
+
                         Console.WriteLine("0: Exit\n" +
                             "1: Bus\n" +
                             "2: Car\n" +
                             "3: Motorcycle\n" +
                             "4: Truck");
-
-                        input = Console.ReadLine()[0];
                         Vehicle newVehicle = null;
 
                         //Set vehicle type based on vehicle type
-                        switch (input)
+                        bool validType = false;
+
+                        while (true)
                         {
-                            case '0':
+                            try
+                            {
+                                input = Console.ReadLine()[0];
+                            }
+                            catch
+                            {
+                                input = ' ';
+                            }
+
+                            switch (input)
+                            {
+                                case '0':
+                                    break;
+                                case '1':
+                                    newVehicle = new Bus();
+                                    newVehicle.V = Vehicle.Vtype.Bus;
+                                    validType = true;
+                                    break;
+                                case '2':
+                                    newVehicle = new Car();
+                                    newVehicle.V = Vehicle.Vtype.Car;
+                                    validType = true;
+                                    break;
+                                case '3':
+                                    newVehicle = new Motorcycle();
+                                    newVehicle.V = Vehicle.Vtype.Motorcycle;
+                                    validType = true;
+                                    break;
+                                case '4':
+                                    newVehicle = new Truck();
+                                    newVehicle.V = Vehicle.Vtype.Truck;
+                                    validType = true;
+                                    break;
+                                default:
+                                    Console.WriteLine("You have to choose a vehicle type");
+                                    validType = false;
+                                    break;
+                            }
+
+                            if (validType == true)
+                            {
                                 break;
-                            case '1':
-                                newVehicle = new Bus();
-                                break;
-                            case '2':
-                                newVehicle = new Car();
-                                break;
-                            case '3':
-                                newVehicle = new Motorcycle();
-                                break;
-                            case '4':
-                                newVehicle = new Truck();
-                                break;
-                            default:
-                                break;
+                            }
                         }
+                        
                         
                         Console.WriteLine("Enter registration number: ");
                         inputs = Console.ReadLine();
@@ -149,6 +185,10 @@ namespace Garage
                         Console.WriteLine("Enter brand: ");
                         inputs = Console.ReadLine();
 
+                        if (inputs == null)
+                        {
+                            break;
+                        }
                         newVehicle.Brand = inputs;
 
                         Console.WriteLine("Enter Model: ");
@@ -216,10 +256,17 @@ namespace Garage
                             default:
                                 break;
                         }
+
+                        if (newVehicle != null)
+                        {
+                            garage.AddVehicle(newVehicle);
+                            Console.WriteLine(newVehicle.ToString() + "\nwas successfully added!");
+                            Console.WriteLine("Press any key to acknowledge");
+                            Console.ReadKey();
+                        }
                         
-                        garage.AddVehicle(newVehicle);
                         break;
-                    case '4':
+                    case '3':
                         Console.WriteLine("Registration number: ");
                         inputs = Console.ReadLine();
 
@@ -249,7 +296,7 @@ namespace Garage
 
                         
                         break;
-                    case '5':
+                    case '4':
                         Console.Clear();
                         List<Vehicle> newVList;
                         Console.Write("Registration Number: ");
