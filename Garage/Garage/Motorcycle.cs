@@ -20,5 +20,10 @@ namespace Garage
             this.V = Vtype.Motorcycle;
             this.Class = Class;
         }
+
+        public override List<string> ToList()
+        {
+            return new List<string>() { "Motorcycle", RegNr, Model, Color, Brand, Class.ToString(), ParkTime.ToString() };
+        }
     }
 }

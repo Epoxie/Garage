@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Text.RegularExpressions;
-
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Garage
 {
@@ -355,8 +356,23 @@ namespace Garage
             // add some testVehicle string RegNr, string Model, string Color, string Brand, int Class
             garage.AddVehicle(new Motorcycle("FUCK-YOU", "SpeedBike", "Very Red", "Fraticelli", 5));
 
+            SaveToFile(garage.GetAllVehicles());
+
             MainMenu();
 
+        }
+
+        static void SaveToFile(List<Vehicle> saveList)
+        {
+            using (StreamWriter file = File.CreateText(@"C:\Users\elev\source\repos\Garage\data\testSave.txt"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                //serialize object directly into file stream
+                foreach (Vehicle v in saveList)
+                {
+                    serializer.Serialize(file, v.ToList().ToArray());
+                }
+            }
         }
     }
 }

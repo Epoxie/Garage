@@ -1,0 +1,1 @@
+["Car","123-456","Ö-7000","Super Blue","Örjans Egna Bilmärke","1975","2017-10-13 10:22:36"]["Motorcycle","FUCK-YOU","SpeedBike","Very Red","Fraticelli","5","2017-10-13 10:22:36"]

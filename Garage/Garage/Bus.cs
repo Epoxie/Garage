@@ -22,5 +22,10 @@ namespace Garage
             this.Size = Size;
             this.Seats = Seats;
         }
+
+        public override List<string> ToList()
+        {
+            return new List<string>() { "Bus", RegNr, Model, Color, Brand, Size.ToString(), Seats.ToString(), ParkTime.ToString() };
+        }
     }
 }
