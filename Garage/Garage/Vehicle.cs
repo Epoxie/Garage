@@ -36,11 +36,6 @@ namespace Garage
 
         public Vehicle()
         {
-
-        }
-
-        public Vehicle(DateTime ParkTime)
-        {
             ParkTime = DateTime.Now;
         }
 
