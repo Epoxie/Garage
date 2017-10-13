@@ -52,5 +52,10 @@ namespace Garage
             this.Color = Color;
             this.Brand = Brand;
         }
+
+        public virtual List<string> ToList()
+        {
+            return new List<string>();
+        }
     }
 }

@@ -20,5 +20,10 @@ namespace Garage
             this.V = Vtype.Truck;
             this.Size = Size;
         }
+
+        public override List<string> ToList()
+        {
+            return new List<string>() { "Truck", RegNr, Model, Color, Brand, Size.ToString(), ParkTime.ToString() };
+        }
     }
 }

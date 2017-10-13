@@ -20,5 +20,10 @@ namespace Garage
             this.V = Vtype.Car;
             this.ProdYear = ProdYear;
         }
+
+        public override List<string> ToList()
+        {
+            return new List<string>() { "Car", RegNr, Model, Color, Brand, ProdYear.ToString(), ParkTime.ToString() };
+        }
     }
 }
